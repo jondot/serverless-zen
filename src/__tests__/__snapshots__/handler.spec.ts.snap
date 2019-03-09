@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handler#hello should say hello 1`] = `
+Object {
+  "body": "{\\"hello\\":\\"world\\"}",
+  "isBase64Encoded": false,
+  "multiValueHeaders": Object {
+    "content-type": Array [
+      "application/json",
+    ],
+  },
+  "statusCode": 200,
+}
+`;

@@ -1,0 +1,90 @@
+service:
+  name: my-service
+
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-plugin-tracing
+  # AWS local services
+  - serverless-s3-local
+  - serverless-dynamodb-local
+  - serverless-offline-kinesis
+
+
+custom:
+  webpack:
+    packager: 'yarn'       # Defaults to npm
+    includeModules: true  # enable auto-packing of external modules
+  s3:
+      host: localhost
+      port: 4577
+      directory: /tmp/serverless-s3-local
+      noStart: true
+  dynamodb:
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+  serverless-offline-kinesis:
+    apiVersion: '2013-12-02'
+    endpoint: http://0.0.0.0:4567
+    region: eu-west-1
+    accessKeyId: root
+    secretAccessKey: root
+    skipCacheInvalidation: false
+    readInterval: 500
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  tracing: true # serverless-plugin-tracing: enable tracing for all.
+  environment: # These names should be aligned with terraform (see tf/), and testing (see package.json)
+    DYNAMODB_TABLE: Things-${opt:stage, self:provider.stage}
+    BUCKET: ${self:service}-bucket-${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Effect: "Allow" # xray permissions (required)
+      Action:
+        - "xray:PutTraceSegments"
+        - "xray:PutTelemetryRecords"
+      Resource:
+        - "*"
+    - Effect: Allow # dynamo permissions (required)
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+    - Effect: Allow # s3 permissions (required)
+      Action:
+        - s3:PutObject
+        - s3:GetObject
+      Resource: "arn:aws:s3:::${self:provider.environment.BUCKET}/*"
+
+
+
+functions:
+  # # use kinesis
+  # myKinesisHandler:
+  #   handler: handler.compute
+  #   events:
+  #     - stream:
+  #         enabled: true
+  #         type: kinesis
+  #         arn: arn:aws:kinesis:eu-west-1:XXXXXX:stream/polls
+  #         batchSize: 10
+  #         startingPosition: TRIM_HORIZON
+  hello:
+    # tracing: false # overrides provider settings (opt out)
+    handler: src/handler.hello
+    memorySize: 256
+    events:
+      - http:
+          method: get
+          path: hello
+      - schedule:
+          rate: rate(5 minutes) # keep hot
+          enabled: true
