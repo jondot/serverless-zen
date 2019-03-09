@@ -148,10 +148,6 @@ $ yarn aws-local:s3
 We use the official [DynamoDB local](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html) distribution from AWS, and to promote consistency of the service and data we only use it through Docker.
 
 
-
-```js
-
-```
 This service is started as part of `yarn aws-local`. If you want to start it individually:
 
 ```
