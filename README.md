@@ -187,7 +187,7 @@ $ yarn jest
 
 Routing and handling looks similar to [Express](https://expressjs.com/) / [Koa](https://koajs.com/) but it's based on neither. To keep the hot path of a request lightweight we use [lambda-api](https://github.com/jeremydaly/lambda-api), which is a minimal layer on top of AWS Lamda API.
 
-[lambda-api](https://github.com/jeremydaly/lambda-api) supports bot middleware and routing:
+[lambda-api](https://github.com/jeremydaly/lambda-api) supports both middleware and routing:
 
 ```js
 api.use(keephot)
