@@ -8,11 +8,11 @@ A [serverless](https://serverless.com) starter project focusing on uncompromisin
 ✅ Zeroconfig ESLint + Airbnb + Prettier via [zeroconf-typescript-eslint](https://github.com/jondot/zeroconf-typescript-eslint)  
 ✅ Webpack  
 ✅ Offline: serverless, S3, DynamoDB, Kinesis  
-✅ Production and offline resource management via [Terraform](https://terraform.io)
-✅ Lightweight and performant Routing + Handling APIs via [lambda-api](https://github.com/jeremydaly/lambda-api)  
-✅ Tracing with XRay
-✅ Keeps a Hot Lambda
-✅ Testing with [Jest](https://jestjs.io/)
+✅ Production and offline resource management via [Terraform](https://terraform.io)  
+✅ Lightweight and performant Routing + Handling APIs via [lambda-api](https://github.com/jeremydaly/lambda-api)    
+✅ Tracing with XRay   
+✅ Keeps a Hot Lambda   
+✅ Testing with [Jest](https://jestjs.io/)  
 
 
 <hr />
