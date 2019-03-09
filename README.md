@@ -1,4 +1,4 @@
-![](media/carve.png)
+![](media/cover.png)
 
 # Serverless Zen
 
