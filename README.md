@@ -8,6 +8,7 @@ A [serverless](https://serverless.com) starter project focusing on uncompromisin
 ✅ Zeroconfig ESLint + Airbnb + Prettier via [zeroconf-typescript-eslint](https://github.com/jondot/zeroconf-typescript-eslint)  
 ✅ Webpack  
 ✅ Offline: serverless, S3, DynamoDB, Kinesis  
+✅ Easily generate handlers via [Hygen](http://hygen.io)  
 ✅ Production and offline resource management via [Terraform](https://terraform.io)  
 ✅ Lightweight and performant Routing + Handling APIs via [lambda-api](https://github.com/jeremydaly/lambda-api)    
 ✅ Tracing with XRay   
@@ -33,6 +34,7 @@ A [serverless](https://serverless.com) starter project focusing on uncompromisin
     - [Kinesis (Beta)](#kinesis-beta)
   - [Testing](#testing)
   - [Routing and Handling](#routing-and-handling)
+  - [Easily Adding Handlers](#easily-adding-handlers)
   - [Keeping a Hot Function](#keeping-a-hot-function)
   - [AWS Services](#aws-services)
     - [Tracing](#tracing)
@@ -104,6 +106,7 @@ Make sure you have the following tools set up in your path:
 * [minio](https://minio.io/)
 * [terraform](https://terraform.io)
 * [the silver searcher](https://github.com/ggreer/the_silver_searcher)
+* [Hygen](http://hygen.io)
 
 
 
@@ -203,6 +206,20 @@ api.get(
 This strikes a tradeoff of wanting to create a slim, minimal, low-overhead function while having a way of moving from Express or out of Serverless should you want to by adhering to a similar looking API.
 
 While wrapping an Express app with [aws-serverless-express](https://github.com/awslabs/aws-serverless-express) seems trivial, it also plugs in a fairly large codebase in the hot path of every request for your function, not to mention the awkwardness of Express supporting async/await.
+
+
+## Easily Adding Handlers
+
+You can add new handlers from a template using [Hygen](http://hygen.io).
+
+```
+$ yarn hygen handler new healthcheck
+```
+
+For now use just one word for a function for simplicity. Look at `_templates/handler` for more information or tweaks. Hygen lets you tweak your own copy of generators at will so anything you do there will not affect other projects.
+
+
+
 
 
 ## Keeping a Hot Function
